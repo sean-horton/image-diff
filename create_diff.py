@@ -2,20 +2,20 @@ import cv2
 import numpy as np
 
 
-LR_IMG = cv2.imread('HR/sloth.bmp')
-HR_IMG = cv2.imread('LR/sloth.bmp')
+HR_IMG = cv2.imread('HR/sloth.bmp')
+LR_IMG = cv2.imread('LR/sloth.bmp')
 OUTPUT_PATH = 'diff/sloth.bmp'
 
 
-def createDif(originalImg, hrImg, outputPath):
+def createDif(lrImg, hrImg, outputPath):
 	height, width = hrImg.shape[:2]
 	dim = (int(width),  int(height))
-	originalImg = cv2.resize(originalImg, dim, interpolation = cv2.INTER_LINEAR)
+	lrImg = cv2.resize(lrImg, dim, interpolation = cv2.INTER_LINEAR)
 	outputImage = np.zeros((height,width,3),np.uint8)
 
 	for i in range(height):
 	  for j in range(width):
-	     aB, aG, aR = originalImg[i,j]
+	     aB, aG, aR = lrImg[i,j]
 	     bB, bG, bR = hrImg[i,j]
 
 	     newB = 0
@@ -41,4 +41,4 @@ def createDif(originalImg, hrImg, outputPath):
 	cv2.imwrite(outputPath, outputImage)
 
 
-createDif(HR_IMG, LR_IMG, OUTPUT_PATH)
+createDif(LR_IMG, HR_IMG, OUTPUT_PATH)
