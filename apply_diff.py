@@ -5,15 +5,15 @@ LR_IMG = cv2.imread('LR/sloth.bmp')
 DIFF_IMG = cv2.imread('diff/sloth.bmp')
 OUTPUT_PATH = 'result/sloth.bmp'
 
-def upscale(originalImg, diffImg, outputPath):
+def upscale(lrImg, diffImg, outputPath):
 	height, width = diffImg.shape[:2]
 	dim = (int(width),  int(height))
-	originalImg = cv2.resize(originalImg, dim, interpolation = cv2.INTER_LINEAR)
+	lrImg = cv2.resize(lrImg, dim, interpolation = cv2.INTER_LINEAR)
 	outputImage = np.zeros((height,width,3),np.uint8)
 
 	for i in range(height):
 	  for j in range(width):
-	     aB, aG, aR = originalImg[i,j]
+	     aB, aG, aR = lrImg[i,j]
 	     bB, bG, bR = diffImg[i,j]
 
 	     newB = (int(aB) + int(bB)) % 256
